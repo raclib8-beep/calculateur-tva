@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Salaire Net Maroc</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+h2{
+text-align:center;
+color:#0b7dda;
+}
+input,button{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:18px;
+box-sizing:border-box;
+}
+button{
+background:#0b7dda;
+color:white;
+border:none;
+border-radius:6px;
+}
+#resultat{
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+}
+.retour{
+display:block;
+margin-top:20px;
+text-align:center;
+text-decoration:none;
+color:#0b7dda;
+}
+</style>
+</head>
+<body>
 
+<div class="container">
+<h2>Calcul Salaire Net Maroc</h2>
+
+<input type="number" id="brut" placeholder="Salaire brut (DH)">
+
+<button onclick="calculer()">Calculer</button>
+
+<div id="resultat"></div>
+
+<a class="retour" href="index.html">⬅ Retour à l'accueil</a>
+</div>
+
+<script>
+function calculer(){
+let brut=parseFloat(document.getElementById("brut").value);
+
+if(isNaN(brut)){
+document.getElementById("resultat").innerHTML="Veuillez saisir un salaire.";
+return;
+}
+
+/* Calcul simplifié (nous l'améliorerons plus tard) */
+let net=brut*0.80;
+
+document.getElementById("resultat").innerHTML=
+"Estimation du salaire net : <br><strong>"+net.toFixed(2)+" DH</strong>";
+}
+</script>
+
+</body>
+</html>
