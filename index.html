@@ -3,66 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculateur TVA Maroc</title>
+<title>Calcul Maroc</title>
 <style>
 body{
 font-family:Arial,sans-serif;
-background:#f4f4f4;
-padding:20px;
-text-align:center;
+background:#f5f5f5;
+margin:0;
+padding:0;
 }
-.container{
-background:#fff;
-padding:20px;
-border-radius:10px;
-max-width:400px;
-margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,.2);
-}
-input,button{
-width:100%;
-padding:10px;
-margin:10px 0;
-font-size:18px;
-}
-button{
+header{
 background:#0b7dda;
 color:white;
-border:none;
-border-radius:5px;
-}
-#resultat{
-font-size:20px;
+padding:20px;
+text-align:center;
+font-size:28px;
 font-weight:bold;
-margin-top:15px;
+}
+.container{
+max-width:500px;
+margin:20px auto;
+padding:15px;
+}
+a{
+display:block;
+text-decoration:none;
+background:white;
+color:#333;
+padding:18px;
+margin:12px 0;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+font-size:20px;
+text-align:center;
+}
+a:hover{
+background:#e8f4ff;
 }
 </style>
 </head>
 <body>
 
+<header>Calcul Maroc 🇲🇦</header>
+
 <div class="container">
-<h2>Calculateur TVA Maroc (20%)</h2>
-
-<input type="number" id="ht" placeholder="Montant HT">
-
-<button onclick="calculer()">Calculer TTC</button>
-
-<div id="resultat"></div>
+<a href="#">💰 Calcul Salaire Net</a>
+<a href="#">📊 Calcul TVA</a>
+<a href="#">🏦 Calcul Crédit</a>
+<a href="#">👴 Calcul Retraite</a>
+<a href="#">📈 Calcul IR</a>
+<a href="#">💱 Convertisseur de devises</a>
 </div>
-
-<script>
-function calculer(){
-let ht=parseFloat(document.getElementById("ht").value);
-if(isNaN(ht)){
-document.getElementById("resultat").innerHTML="Saisissez un montant.";
-return;
-}
-let tva=ht*0.20;
-let ttc=ht+tva;
-document.getElementById("resultat").innerHTML=
-"TVA : "+tva.toFixed(2)+" DH<br>TTC : "+ttc.toFixed(2)+" DH";
-}
-</script>
 
 </body>
 </html>
