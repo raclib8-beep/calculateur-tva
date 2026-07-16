@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Retraite Maroc</title>
+
+<style>
+body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;}
+.container{max-width:500px;margin:auto;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+h2{text-align:center;color:#0b7dda;}
+input,button{width:100%;padding:12px;margin:10px 0;font-size:18px;box-sizing:border-box;}
+button{background:#0b7dda;color:white;border:none;border-radius:6px;}
+#resultat{margin-top:15px;font-size:20px;font-weight:bold;}
+a{display:block;margin-top:20px;text-align:center;text-decoration:none;color:#0b7dda;}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<h2>Calcul Retraite Maroc</h2>
+
+<input type="number" id="salaire" placeholder="Dernier salaire (DH)">
+<input type="number" id="annees" placeholder="Années de cotisation">
+
+<button onclick="calculer()">Calculer</button>
+
+<div id="resultat"></div>
+
+<a href="index.html">⬅ Retour à l'accueil</a>
+
+</div>
+
+<script>
+function calculer(){
+
+let salaire=parseFloat(document.getElementById("salaire").value);
+let annees=parseFloat(document.getElementById("annees").value);
+
+if(isNaN(salaire)||isNaN(annees)){
+document.getElementById("resultat").innerHTML="Veuillez remplir tous les champs.";
+return;
+}
+
+// Estimation simple
+let pension=salaire*(annees/40)*0.5;
+
+document.getElementById("resultat").innerHTML=
+"Retraite estimée : <br><strong>"+pension.toFixed(2)+" DH / mois</strong>";
+
+}
+</script>
+
+</body>
+</html>
