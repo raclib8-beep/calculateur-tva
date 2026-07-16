@@ -3,45 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculateur TVA Maroc</title>
+<title>Calcul TVA Maroc</title>
+
 <style>
 body{
 font-family:Arial,sans-serif;
 background:#f5f5f5;
 padding:20px;
 }
+
 .container{
 max-width:500px;
 margin:auto;
-background:#fff;
+background:white;
 padding:20px;
 border-radius:10px;
 box-shadow:0 2px 8px rgba(0,0,0,.2);
 }
+
 h2{
 text-align:center;
 color:#0b7dda;
 }
-input,button{
+
+input,select,button{
 width:100%;
 padding:12px;
 margin:10px 0;
 font-size:18px;
 box-sizing:border-box;
 }
+
 button{
 background:#0b7dda;
-color:#fff;
+color:white;
 border:none;
 border-radius:6px;
-cursor:pointer;
 }
+
 #resultat{
 margin-top:15px;
-font-size:20px;
+font-size:18px;
 font-weight:bold;
+line-height:1.6;
 }
-.retour{
+
+a{
 display:block;
 margin-top:20px;
 text-align:center;
@@ -49,36 +56,51 @@ text-decoration:none;
 color:#0b7dda;
 }
 </style>
+
 </head>
+
 <body>
 
 <div class="container">
-<h2>Calculateur TVA Maroc (20%)</h2>
 
-<input type="number" id="ht" placeholder="Montant HT en DH">
+<h2>📊 Calcul TVA Maroc</h2>
+
+<input type="number" id="ht" placeholder="Montant HT (DH)">
+
+<select id="taux">
+<option value="20">TVA 20%</option>
+<option value="14">TVA 14%</option>
+<option value="10">TVA 10%</option>
+<option value="7">TVA 7%</option>
+</select>
 
 <button onclick="calculer()">Calculer</button>
 
 <div id="resultat"></div>
 
-<a class="retour" href="index.html">⬅ Retour à l'accueil</a>
+<a href="index.html">⬅ Retour à l'accueil</a>
+
 </div>
 
+
 <script>
-function calculer() {
-  let ht = parseFloat(document.getElementById("ht").value);
+function calculer(){
 
-  if (isNaN(ht)) {
-    document.getElementById("resultat").innerHTML = "Veuillez saisir un montant.";
-    return;
-  }
+let ht=parseFloat(document.getElementById("ht").value);
+let taux=parseFloat(document.getElementById("taux").value);
 
-  let tva = ht * 0.20;
-  let ttc = ht + tva;
+if(isNaN(ht)){
+document.getElementById("resultat").innerHTML="Veuillez saisir un montant.";
+return;
+}
 
-  document.getElementById("resultat").innerHTML =
-    "TVA : " + tva.toFixed(2) + " DH<br>" +
-    "TTC : " + ttc.toFixed(2) + " DH";
+let tva=ht*taux/100;
+let ttc=ht+tva;
+
+document.getElementById("resultat").innerHTML=
+"TVA : "+tva.toFixed(2)+" DH<br>"+
+"Prix TTC : "+ttc.toFixed(2)+" DH";
+
 }
 </script>
 
