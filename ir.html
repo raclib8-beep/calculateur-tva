@@ -6,23 +6,65 @@
 <title>Calcul IR Maroc</title>
 
 <style>
-body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;}
-.container{max-width:500px;margin:auto;background:white;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-h2{text-align:center;color:#0b7dda;}
-input,button{width:100%;padding:12px;margin:10px 0;font-size:18px;box-sizing:border-box;}
-button{background:#0b7dda;color:white;border:none;border-radius:6px;}
-#resultat{margin-top:15px;font-size:20px;font-weight:bold;}
-a{display:block;margin-top:20px;text-align:center;text-decoration:none;color:#0b7dda;}
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+h2{
+text-align:center;
+color:#0b7dda;
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:18px;
+box-sizing:border-box;
+}
+
+button{
+background:#0b7dda;
+color:white;
+border:none;
+border-radius:6px;
+}
+
+#resultat{
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+}
+
+a{
+display:block;
+margin-top:20px;
+text-align:center;
+text-decoration:none;
+color:#0b7dda;
+}
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
-<h2>Calcul IR Maroc</h2>
+<h2>📈 Calcul IR Maroc</h2>
 
-<input type="number" id="revenu" placeholder="Salaire mensuel brut (DH)">
+<input type="number" id="revenu" placeholder="Revenu mensuel imposable (DH)">
 
 <button onclick="calculer()">Calculer</button>
 
@@ -33,6 +75,7 @@ a{display:block;margin-top:20px;text-align:center;text-decoration:none;color:#0b
 </div>
 
 <script>
+
 function calculer(){
 
 let revenu=parseFloat(document.getElementById("revenu").value);
@@ -42,13 +85,28 @@ document.getElementById("resultat").innerHTML="Veuillez saisir un montant.";
 return;
 }
 
-// Estimation simple (10 %)
-let ir=revenu*0.10;
+let ir=0;
+
+// Estimation simple par tranches mensuelles
+if(revenu<=3333){
+ir=0;
+}
+else if(revenu<=5000){
+ir=(revenu-3333)*0.10;
+}
+else if(revenu<=6667){
+ir=(1667*0.10)+((revenu-5000)*0.20);
+}
+else{
+ir=(1667*0.10)+(1667*0.20)+((revenu-6667)*0.30);
+}
 
 document.getElementById("resultat").innerHTML=
-"IR estimé : <br><strong>"+ir.toFixed(2)+" DH</strong>";
+"IR estimé :<br><strong>"+
+ir.toFixed(2)+" DH</strong>";
 
 }
+
 </script>
 
 </body>
