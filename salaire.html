@@ -127,29 +127,9 @@ document.getElementById("resultat").innerHTML = `
 CNSS : -${cnss.toFixed(2)} DH<br>
 AMO : -${amo.toFixed(2)} DH<br>
 // Revenu imposable
-let revenu = imposable * 12;
-let irAnnuel = 0;
 
-if (revenu <= 40000)
-    irAnnuel = 0;
-else if (revenu <= 60000)
-    irAnnuel = (revenu - 40000) * 0.10;
-else if (revenu <= 80000)
-    irAnnuel = 2000 + (revenu - 60000) * 0.20;
-else if (revenu <= 100000)
-    irAnnuel = 6000 + (revenu - 80000) * 0.30;
-else if (revenu <= 180000)
-    irAnnuel = 12000 + (revenu - 100000) * 0.34;
-else
-    irAnnuel = 39200 + (revenu - 180000) * 0.37;
-
-let ir = irAnnuel / 12;
-
-<hr>
-
-<div class="total">
-Salaire net : ${net.toFixed(2)} DH
-</div>
+let i
+</div
 `;
 
 }
