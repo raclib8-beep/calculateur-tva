@@ -1,30 +1,110 @@
-calculer(){
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Salaire Net Maroc</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+
+.container{
+max-width:550px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+h2{
+text-align:center;
+color:#0b7dda;
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:18px;
+box-sizing:border-box;
+}
+
+button{
+background:#0b7dda;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+#resultat{
+margin-top:20px;
+padding:15px;
+background:#f8f8f8;
+border-radius:8px;
+line-height:1.8;
+font-size:18px;
+}
+
+.total{
+font-size:22px;
+color:#0b7dda;
+font-weight:bold;
+}
+
+a{
+display:block;
+margin-top:20px;
+text-align:center;
+text-decoration:none;
+color:#0b7dda;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💰 Calcul Salaire Net Maroc</h2>
+
+<input type="number" id="brut" placeholder="Salaire brut mensuel (DH)">
+
+<button onclick="calculer()">Calculer</button>
+
+<div id="resultat"></div>
+
+<a href="index.html">⬅ Retour à l'accueil</a>
+
+</div>
+
+<script>
+
+function calculer(){
 
 let brut=parseFloat(document.getElementById("brut").value);
 
-if(isNaN(brut)){
-document.getElementById("resultat").innerHTML="Veuillez saisir un salaire.";
+if(isNaN(brut)||brut<=0){
+document.getElementById("resultat").innerHTML="Veuillez saisir un salaire valide.";
 return;
 }
 
-let cnss=brut*0.0448;
+// CNSS salarié (4,48 % plafonné à 6000 DH)
+let baseCNSS=Math.min(brut,6000);
+let cnss=baseCNSS*0.0448;
+
+// AMO salarié (2,26 %)
 let amo=brut*0.0226;
-let ir=brut*0.10;
 
-let net=brut-cnss-amo-ir;
+// Salaire après cotisations
+let imposable=brut-cnss-amo;
 
-document.getElementById("resultat").innerHTML=
-"CNSS : "+cnss.toFixed(2)+" DH<br>"+
-"AMO : "+amo.toFixed(2)+" DH<br>"+
-"IR : "+ir.toFixed(2)+" DH<br><br>"+
-"<strong>Salaire net estimé : "+net.toFixed(2)+" DH</strong>";
-
-}
-</script>
-
-</body>
-</html>
-// ===== IR estimatif (à améliorer avec le barème complet) =====
+// La suite du calcul IR arrive dans la Partie 2.// ===== IR estimatif (à améliorer avec le barème complet) =====
 let ir = 0;
 
 if(imposable <= 4000){
