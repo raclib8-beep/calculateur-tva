@@ -131,16 +131,25 @@ if(imposable <= 4000){
 let net = brut - cnss - amo - ir;
 
 // Affichage
-document.getElementById("resultat").innerHTML = `
+documdocument.getElementById("resultat").innerHTML = `
 <b>Salaire brut :</b> ${brut.toFixed(2)} DH<br><br>
 
 CNSS : -${cnss.toFixed(2)} DH<br>
 AMO : -${amo.toFixed(2)} DH<br>
-IR estimé : -${ir.toFixed(2)} DH<br>
+IR : -${ir.toFixed(2)} DH<br>
+
+<hr>
+
+<b>Net avant retenues :</b> ${netAvant.toFixed(2)} DH<br>
+CMIM : -${cmim.toFixed(2)} DH<br>
+Épargne : -${epargne.toFixed(2)} DH<br>
 
 <hr>
 
 <div class="total">
+Salaire net versé : ${net.toFixed(2)} DH
+</div>
+`;
 Salaire net : ${net.toFixed(2)} DH
 </div>
 `;
@@ -149,4 +158,4 @@ Salaire net : ${net.toFixed(2)} DH
 </script>
 
 </body>
-</html>
+</h
