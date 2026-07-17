@@ -1,76 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul Salaire Net Maroc</title>
-
-<style>
-body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-padding:20px;
-}
-.container{
-max-width:500px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,.2);
-}
-h2{
-text-align:center;
-color:#0b7dda;
-}
-input,button{
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:18px;
-box-sizing:border-box;
-}
-button{
-background:#0b7dda;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-#resultat{
-margin-top:15px;
-font-size:18px;
-line-height:1.6;
-font-weight:bold;
-}
-.retour{
-display:block;
-margin-top:20px;
-text-align:center;
-text-decoration:none;
-color:#0b7dda;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Calcul Salaire Net Maroc</h2>
-
-<input type="number" id="brut" placeholder="Salaire brut (DH)">
-
-<button onclick="calculer()">Calculer</button>
-
-<div id="resultat"></div>
-
-<a class="retour" href="index.html">⬅ Retour à l'accueil</a>
-
-</div>
-
-<script>
-function calculer(){
+calculer(){
 
 let brut=parseFloat(document.getElementById("brut").value);
 
@@ -90,6 +18,44 @@ document.getElementById("resultat").innerHTML=
 "AMO : "+amo.toFixed(2)+" DH<br>"+
 "IR : "+ir.toFixed(2)+" DH<br><br>"+
 "<strong>Salaire net estimé : "+net.toFixed(2)+" DH</strong>";
+
+}
+</script>
+
+</body>
+</html>
+// ===== IR estimatif (à améliorer avec le barème complet) =====
+let ir = 0;
+
+if(imposable <= 4000){
+    ir = 0;
+}else if(imposable <= 6000){
+    ir = (imposable - 4000) * 0.10;
+}else if(imposable <= 8000){
+    ir = 200 + (imposable - 6000) * 0.20;
+}else if(imposable <= 12000){
+    ir = 600 + (imposable - 8000) * 0.30;
+}else{
+    ir = 1800 + (imposable - 12000) * 0.37;
+}
+
+// Salaire net
+let net = brut - cnss - amo - ir;
+
+// Affichage
+document.getElementById("resultat").innerHTML = `
+<b>Salaire brut :</b> ${brut.toFixed(2)} DH<br><br>
+
+CNSS : -${cnss.toFixed(2)} DH<br>
+AMO : -${amo.toFixed(2)} DH<br>
+IR estimé : -${ir.toFixed(2)} DH<br>
+
+<hr>
+
+<div class="total">
+Salaire net : ${net.toFixed(2)} DH
+</div>
+`;
 
 }
 </script>
