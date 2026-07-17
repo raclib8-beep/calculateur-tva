@@ -1,83 +1,71 @@
-<input type="number" id="brut" placeholder="Exemple : 17000">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Salaire Net Maroc</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px}
+.container{max-width:600px;margin:auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+input,button{width:100%;padding:10px;margin:8px 0;box-sizing:border-box}
+button{background:#0b7dda;color:#fff;border:none;border-radius:6px}
+#resultat{margin-top:15px;background:#f8f8f8;padding:12px;border-radius:8px}
+.total{font-weight:bold;font-size:22px;color:#0b7dda}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>💰 Calcul Salaire Net Maroc</h2>
 
-<label>Nombre de personnes à charge</label>
-<input type="number" id="charge" value="0">
+<input type="number" id="brut" placeholder="Salaire brut mensuel (DH)">
+<input type="number" id="cmim" placeholder="CMIM (facultatif)" value="0">
+<input type="number" id="epargne" placeholder="Épargne (facultatif)" value="0">
 
 <button onclick="calculer()">Calculer</button>
 
-<div class="resultat" id="resultat">
-Résultat ici
-</div>
+<div id="resultat"></div>
 
+<p><a href="index.html">⬅ Retour à l'accueil</a></p>
 </div>
-
 
 <script>
-
 function calculer(){
+ let brut=parseFloat(document.getElementById("brut").value)||0;
+ let cmim=parseFloat(document.getElementById("cmim").value)||0;
+ let epargne=parseFloat(document.getElementById("epargne").value)||0;
+ if(brut<=0){
+   document.getElementById("resultat").innerHTML="Veuillez saisir un salaire valide.";
+   return;
+ }
+ let baseCNSS=Math.min(brut,6000);
+ let cnss=baseCNSS*0.0448;
+ let amo=brut*0.0226;
+ let imposable=brut-cnss-amo;
 
-let brut = Number(document.getElementById("brut").value);
-let charge = Number(document.getElementById("charge").value);
+ // IR simplifié (à affiner avec le barème officiel)
+ let revenu=imposable*12;
+ let irAnnuel=0;
+ if(revenu<=40000) irAnnuel=0;
+ else if(revenu<=60000) irAnnuel=(revenu-40000)*0.10;
+ else if(revenu<=80000) irAnnuel=2000+(revenu-60000)*0.20;
+ else if(revenu<=100000) irAnnuel=6000+(revenu-80000)*0.30;
+ else if(revenu<=180000) irAnnuel=12000+(revenu-100000)*0.34;
+ else irAnnuel=39200+(revenu-180000)*0.37;
 
-if(brut<=0){
-document.getElementById("resultat").innerHTML="Veuillez entrer un salaire";
-return;
+ let ir=irAnnuel/12;
+ let netAvant=brut-cnss-amo-ir;
+ let net=netAvant-cmim-epargne;
+
+ document.getElementById("resultat").innerHTML=
+ `<b>Salaire brut :</b> ${brut.toFixed(2)} DH<br>
+ CNSS : -${cnss.toFixed(2)} DH<br>
+ AMO : -${amo.toFixed(2)} DH<br>
+ IR estimé : -${ir.toFixed(2)} DH<br><hr>
+ <b>Net avant retenues :</b> ${netAvant.toFixed(2)} DH<br>
+ CMIM : -${cmim.toFixed(2)} DH<br>
+ Épargne : -${epargne.toFixed(2)} DH<br><hr>
+ <div class="total">Salaire net : ${net.toFixed(2)} DH</div>`;
 }
-
-
-// Cotisations simplifiées Maroc
-let cnss = Math.min(brut*0.0448,268.80);
-let amo = brut*0.0226;
-
-
-// Net imposable
-let netImposable = brut - cnss - amo;
-
-
-// Frais professionnels 20%
-let frais = Math.min(netImposable*0.20,2500);
-
-let baseIR = netImposable - frais;
-
-
-// IR simplifié
-let ir = 0;
-
-if(baseIR*12 <= 30000){
-ir=0;
-}
-else if(baseIR*12 <= 50000){
-ir=(baseIR*12-30000)*0.10/12;
-}
-else if(baseIR*12 <= 60000){
-ir=((20000*0.10)+(baseIR*12-50000)*0.20)/12;
-}
-else if(baseIR*12 <= 80000){
-ir=((20000*0.10)+(10000*0.20)+(baseIR*12-60000)*0.30)/12;
-}
-else{
-ir=((20000*0.10)+(10000*0.20)+(20000*0.30)+(baseIR*12-80000)*0.34)/12;
-}
-
-
-// réduction personnes à charge
-ir = Math.max(0,ir-(charge*50));
-
-
-let net = brut-cnss-amo-ir;
-
-
-document.getElementById("resultat").innerHTML=
-
-"💰 Salaire brut : "+brut.toFixed(2)+" DH<br><br>"+
-"CNSS : -"+cnss.toFixed(2)+" DH<br>"+
-"AMO : -"+amo.toFixed(2)+" DH<br>"+
-"IR : -"+ir.toFixed(2)+" DH<br><br>"+
-"<b>✅ Salaire Net estimé : "+net.toFixed(2)+" DH</b>";
-
-}
-
 </script>
-
 </body>
 </html>
