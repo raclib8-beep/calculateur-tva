@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul Salaire Net Maroc</title>
 
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+}
+
+h1{
+text-align:center;
+color:#006233;
+}
+
+label{
+font-weight:bold;
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:15px;
+border-radius:5px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+background:#006233;
+color:white;
+cursor:pointer;
+}
+
+.resultat{
+background:#eee;
+padding:15px;
+border-radius:8px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🇲🇦 Calcul Salaire Net Maroc</h1>
+
+<label>Salaire brut mensuel (DH)</label>
+<input type="number" id="brut" placeholder="Exemple : 17000">
+
+<label>Nombre de personnes à charge</label>
+<input type="number" id="charge" value="0">
+
+<button onclick="calculer()">Calculer</button>
+
+<div class="resultat" id="resultat">
+Résultat ici
+</div>
+
+</div>
+
+
+<script>
+
+function calculer(){
+
+let brut = Number(document.getElementById("brut").value);
+let charge = Number(document.getElementById("charge").value);
+
+if(brut<=0){
+document.getElementById("resultat").innerHTML="Veuillez entrer un salaire";
+return;
+}
+
+
+// Cotisations simplifiées Maroc
+let cnss = Math.min(brut*0.0448,268.80);
+let amo = brut*0.0226;
+
+
+// Net imposable
+let netImposable = brut - cnss - amo;
+
+
+// Frais professionnels 20%
+let frais = Math.min(netImposable*0.20,2500);
+
+let baseIR = netImposable - frais;
+
+
+// IR simplifié
+let ir = 0;
+
+if(baseIR*12 <= 30000){
+ir=0;
+}
+else if(baseIR*12 <= 50000){
+ir=(baseIR*12-30000)*0.10/12;
+}
+else if(baseIR*12 <= 60000){
+ir=((20000*0.10)+(baseIR*12-50000)*0.20)/12;
+}
+else if(baseIR*12 <= 80000){
+ir=((20000*0.10)+(10000*0.20)+(baseIR*12-60000)*0.30)/12;
+}
+else{
+ir=((20000*0.10)+(10000*0.20)+(20000*0.30)+(baseIR*12-80000)*0.34)/12;
+}
+
+
+// réduction personnes à charge
+ir = Math.max(0,ir-(charge*50));
+
+
+let net = brut-cnss-amo-ir;
+
+
+document.getElementById("resultat").innerHTML=
+
+"💰 Salaire brut : "+brut.toFixed(2)+" DH<br><br>"+
+"CNSS : -"+cnss.toFixed(2)+" DH<br>"+
+"AMO : -"+amo.toFixed(2)+" DH<br>"+
+"IR : -"+ir.toFixed(2)+" DH<br><br>"+
+"<b>✅ Salaire Net estimé : "+net.toFixed(2)+" DH</b>";
+
+}
+
+</script>
+
+</body>
+</html>
