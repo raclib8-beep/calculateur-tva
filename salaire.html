@@ -70,7 +70,11 @@ color:#0b7dda;
 <body>
 
 <div class="container">
+let cmim = parseFloat(document.getElementById("cmim").value) || 0;
+let epargne = parseFloat(document.getElementById("epargne").value) || 0;
 
+let netAvant = brut - cnss - amo - ir;
+let net = netAvant - cmim - epargne;
 <h2>💰 Calcul Salaire Net Maroc</h2>
 
 <input type="number" id="brut" placeholder="Salaire brut mensuel (DH)">
