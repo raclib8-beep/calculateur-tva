@@ -45,13 +45,13 @@ return;
 
 let mensualite=(m*t)/(1-Math.pow(1+t,-n));
 let total = mensualite * n;
-let interets = total - 
+let interets = total - m;
 
 document.getElementById("resultat").innerHTML =
 "<b>Mensualité :</b> " + mensualite.toFixed(2) + " DH<br><br>" +
 "<b>Total remboursé :</b> " + total.toFixed(2) + " DH<br><br>" +
 "<b>Coût des intérêts :</b> " + interets.toFixed(2) + " DH";
-"M
+
 }
 </script>
 
