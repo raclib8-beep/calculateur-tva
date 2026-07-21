@@ -35,21 +35,25 @@ a{display:block;margin-top:20px;text-align:center;text-decoration:none;color:#0b
 function calculer(){
 
 let salaire=parseFloat(document.getElementById("salaire").value);
+let age=parseFloat(document.getElementById("age").value);
 let annees=parseFloat(document.getElementById("annees").value);
 
-if(isNaN(salaire)||isNaN(annees)){
+if(isNaN(salaire)||isNaN(age)||isNaN(annees)){
 document.getElementById("resultat").innerHTML="Veuillez remplir tous les champs.";
 return;
 }
 
-// Estimation simple
-let pension=salaire*(annees/40)*0.5;
+let taux=(annees/40)*0.5;
+
+if(taux>0.5){
+taux=0.5;
+}
+
+let pension=salaire*taux;
 
 document.getElementById("resultat").innerHTML=
-"Retraite estimée : <br><strong>"+pension.toFixed(2)+" DH / mois</strong>";
+"<b>Âge :</b> "+age+" ans<br>"+
+"<b>Années de cotisation :</b> "+annees+" ans<br>"+
+"<b>Pension mensuelle estimée :</b> "+pension.toFixed(2)+" DH";
 
 }
-</script>
-
-</body>
-</html>
